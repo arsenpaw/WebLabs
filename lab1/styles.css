@@ -18,19 +18,28 @@ a {
   text-decoration: none;
   color: inherit;
 }
-h1{
+.header h1{
+    margin-left: 10%;
   max-width: 30%;
+text-align: left;
 }
 .header {
  background-image: url("./static/title.png");
   color: black;
+    display: flex;
+    flex-direction: column;
    background-size: cover;
  object-fit: cover;
   padding-bottom: 40%;
   width: 100%;
 
 }
-
+.header button{
+  display: flex;
+  margin-left: 10%;
+  vertical-align: bottom;
+align-items: start;
+}
 .navbar {
   display: flex;
    padding: 20px;
@@ -51,7 +60,7 @@ h1{
 }
 .descriptiom-img{
     scale: 0.5;
-    object-fit: cover;
+    object-fit: fill;
 }
 
 .about-us{
@@ -86,11 +95,17 @@ h1{
 
 }
 
-.button {
+.cta-button {
   background-color: #ff6450;
-  padding: 10px 20px;
+  padding: 15px 30px;
   color: white;
-  border-radius: 20px;
+  border: none;
+  display: flex;
+  border-radius: 30px;
+  font-size: 1.2rem;
+  justify-content: start;
+  vertical-align: bottom;
+  align-items: center;
 }
 
 .hero {
@@ -103,14 +118,24 @@ h1{
   color: #fff;
 }
 
-.cta-button {
-  background-color: #ff6450;
-  padding: 15px 30px;
-  color: white;
-  border: none;
-  border-radius: 30px;
-  font-size: 1.2rem;
+.info-box {
+    background-color: #f1bcab;
+    border-left: 5px solid #f55a44;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    color: #333;
+    width: 40%;
 }
+
+.info-box p {
+    margin: 0;
+    line-height: 1.5;
+}
+
 
 .about-us, .how-to-apply, .clients {
   text-align: center;
@@ -149,9 +174,34 @@ h1{
   align-items: start;
   border-radius: 30%;
 }
-footer {
-  background-color: #ff6450;
-  text-align: center;
-  color: white;
-  padding: 20px;
+.footer {
+    background-color: #f55a44; /* Similar to the color in the image */
+    padding: 20px;
+    text-align: center;
+    color: white;
+    font-family: 'Arial', sans-serif;
+    position: relative;
+}
+
+.footer p {
+    margin: 0;
+    font-size: 14px;
+    display: inline-block;
+}
+
+.footer .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer .social-icons a {
+    margin: 0 10px;
+}
+
+.footer .social-icons img {
+    width: 30px;
+    height: 30px;
 }
