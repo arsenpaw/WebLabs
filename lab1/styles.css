@@ -62,11 +62,14 @@ body {
 .about-us img, .how-to-apply img {
   scale: 0.5;
 }
-
+.about-us{
+    margin-top: 5%;
+}
 .about-us, .how-to-apply {
   display: flex;
   justify-content: center;
-  margin: 10% 20%;
+  margin-right: 20%;
+    margin-left: 20%;
 }
 
 .about-us h2, .how-to-apply h2 {
