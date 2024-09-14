@@ -1,0 +1,40 @@
+/* header.css */
+.header {
+    margin-left: 4%;
+    background-image: url("../images/title.png");
+    background-size: cover;
+    padding-bottom: 25%;
+    color: black;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .header h1 {
+    margin-left: 10%;
+    max-width: 40%;
+    text-align: left;
+  }
+
+.cta-button {
+  display: flex;
+  margin-left: 3%;
+  background-color: #ff6450;
+  margin-top: 20%;
+  padding: 15px 30px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  justify-content: start;
+  align-items: center;
+}
+/* hero.css */
+.hero {
+  text-align: center;
+  padding: 50px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  color: #fff;
+}

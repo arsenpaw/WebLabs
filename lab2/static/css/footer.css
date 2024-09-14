@@ -1,0 +1,29 @@
+/* footer.css */
+.footer {
+  background-color: #f55a44;
+  padding: 20px;
+  text-align: center;
+  color: white;
+}
+
+.footer p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.footer .footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer .social-icons a {
+  margin: 0 10px;
+}
+
+.footer .social-icons img {
+  width: 30px;
+  height: 30px;
+}
