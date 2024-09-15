@@ -1,0 +1,19 @@
+.footer__container {
+    background: #F16353;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+}
+
+.footer__container p{
+    font-size: 0.5rem;
+    font-weight: 700;
+    line-height: 3rem;
+}
+
+.footer__container ul {
+    display:flex;
+    gap: 1rem;
+}
