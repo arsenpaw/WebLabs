@@ -10,6 +10,27 @@ header {
 .navbar__logo {
     margin-top: 3%;
 }
+
+.intro__btn {
+    animation: pulse 2s infinite;
+    background: #EE4D47;
+    font-weight: 540;
+    margin-left: 7%;
+    padding: 1rem 2rem;
+    border: 0;
+    border-radius: 5px;
+    color: white;
+}
+h1 {
+    font-size: 5rem;
+    font-weight: 400;
+    line-height: 5rem;
+    margin-top: 5%;
+}
+.intro-content {
+    max-width: 40%;
+    margin-left: 2%;
+}
 .navbar {
     display: flex;
     justify-content: space-around;
@@ -49,6 +70,14 @@ header {
 .navbar nav ul li a:hover {
     color: #ffd1a4;
 }
+.header__menu{
+    display: none;
+    width: 32px;
+    cursor: pointer;
+}
+.header__menu img {
+    max-width:100%;
+}
 .intro{
     text-align: left;
     align-items: flex-end;
@@ -74,18 +103,53 @@ header {
 
 @media screen and (min-width: 320px ) and (max-width: 768px) {
     header {
-
-        width: 100%;
+        color: white;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 400px;
+    }
+    header h1 {
+        font-size: 2rem;
+        font-weight: 400;
+        line-height: 2rem;
+        margin-top: 10%;
     }
     .intro{
         margin: 0 auto;
-
-
     }
     .navbar {
         display: none;
     }
+     .header__menu{
+         position: absolute;
+        right: 5%;
+         top: 5%;
 
+    }
 
+}
+
+@media screen and (min-width: 1440px ) {
+    .navbar {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+}
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(255, 140, 0, 0.4);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 0 20px rgba(255, 140, 0, 0.7);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(255, 140, 0, 0.4);
+    }
 }
 

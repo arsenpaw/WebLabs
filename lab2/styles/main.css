@@ -1,43 +1,37 @@
-.about_us, .how_to_apply {
-    padding: 10% 10%;
-}
-.how_to_apply, .about_us{
+.container{
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 80%;
+
 }
-.about_us h2 ,.how_to_apply h2{
+.apply_inner{
+    max-width: 480px;
+}
+.apply_illustration, .about_illustration{
+    max-width: 75%;
+    margin-bottom: 20px;
+}
+ .title{
+    color: #EE4D47;
     font-size: 24px;
     font-weight: 700;
     line-height: 40px;
     letter-spacing: 0.1em;
-    color:#EE4D47;
-}
-.about_us h2{
-    margin-right: 85%;
-}
-.how_to_apply h2{
-    margin-left: 45%;
-}
-.how_to_apply p, .about_us_text p {
-    font-size: 18px;
-    font-weight: 300;
-    line-height: 40px;
     text-align: left;
 }
-.how_to_apply p{
-    text-align: left;
-     display: flex;
-    justify-content: end;
-}
-.about_us p{
-    display: flex;
-    justify-content: start;
-}
+.paragraph{
 
-.about_us__illustration{
-    position:absolute;
-    right: 4%;
-    margin-top: -20%;
+font-size: 18px;
+font-weight: 300;
+line-height: 40px;
+text-align: left;
+
+}
+.how_to_apply_text{
+    display: flex;
+    justify-content: end;
 }
 
 .about_us_notification p{
@@ -55,23 +49,18 @@
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   font-size: 16px;
   color: #333;
-  width: 30%;
-}
 
-
-.how_to_apply__illustration{
-    position:absolute;
-    left: 4%;
-    margin-top: -15%;
 }
 
 .feedbacks {
     padding: 50px;
+    text-align: center;
 }
 
 .feedbacks__container-person h5, img{
     display: flex;
     align-items: flex-start;
+
 }
 
 .feedbacks h3 {
@@ -91,20 +80,29 @@
     display: flex;
     justify-content: space-between;
 }
+
 .feedback {
     width: 30%;
-    background-color: #e4d9c7;
-    border-radius: 5%;
+    background-color: #FFF;
+    border-radius: 10px;
     padding: 1%;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 20px 40px 0px #EE4D471A;
+}
+.feedback:hover {
+    box-shadow: 0px 20px 40px 0px #e8271b;
+    transition: 1s;
 }
 .feedback p {
     font-size: 16px;
     font-weight: 300;
     line-height: 30px;
-    text-align: left;
+    text-align: center;
+
 }
 .feedback h5 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     font-size: 16px;
     font-weight: 700;
     line-height: 30px;
@@ -132,19 +130,14 @@
     .feedbacks {
         padding: 20px;
     }
-    .feedbacks h3 {
-        font-size: 20px;
-        line-height: 30px;
-    }
-    .feedbacks h4{
-        font-size: 36px;
-        line-height: 50.4px;
-    }
     .feedback {
         width: 100%;
     }
     .feedbacks__container {
+        display: flex;
         flex-direction: column;
+        gap: 30px;
+
     }
     .feedbacks__container-person h5, img{
         display: flex;
@@ -154,5 +147,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+    .container {
+        display: flex;
+        flex-direction: column;
     }
 }

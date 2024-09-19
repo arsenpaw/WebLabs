@@ -10,73 +10,84 @@
     <link rel="stylesheet" href="./styles/styles.css">
 </head>
 <body>
-        <div class="container">
-            <header class="header">
-                <div class="navbar">
-                    <img class="navbar__logo" src="./img/logo.svg" alt="logo">
-                    <nav class="header__nav">
-                        <ul>
-                            <li class="header__nav-item"><a href="">ABOUT</a></li>
-                            <li class="header__nav-item"><a href="">HOW TO</a></li>
-                            <li class="header__nav-item"><a href="">FAQS</a></li>
-                            <li class="header__nav-btn"><a href="">CONTACT US</a></li>
-                        </ul>
-                    </nav>
+
+        <header class="header">
+            <div class="navbar">
+
+                <img class="navbar__logo" src="./img/logo.svg" alt="logo">
+                <nav class="header__nav">
+                    <ul>
+                        <li class="header__nav-item"><a class="header__nav-link" href="">ABOUT</a></li>
+                        <li class="header__nav-item"><a class="header__nav-link" href="">HOW TO</a></li>
+                        <li class="header__nav-item"><a class="header__nav-link" href="">FAQS</a></li>
+                        <li class="header__nav-btn"><a class="header__nav-link" href="">CONTACT US</a></li>
+                    </ul>
+
+                </nav>
+            </div>
+             <section class="intro">
+                <div class="intro-content">
+                    <h1>Your awesome  traffic permit consultant.</h1>
+                    <button class="intro__btn">Get Started</button>
                 </div>
-                <section class="intro">
-                    <div class="intro-content">
-                        <h2>Your awesome <br> traffic permit <br> consultant.</h2>
-                        <a href="" class="intro__btn">Get Started</a>
-                    </div>
-                </section>
-            </header>
+            </section>
+             <div class="header__menu" onclick="toggleMenu()">
+              <img src="img/menu-icon.svg" alt="Menu icon">
+                      </div>
+
+        </header>
 
             <main>
-                <section class="about_us">
-                    <div class="about_us_text">
-                        <h2>ABOUT US</h2>
-                        <p>The occupational traffic permit is one of the most <br>
-                            important things in the company when carrying out <br>
-                            freight transport. In fact, it is a prerequisite for doing<br>
-                            business traffic at all.
-                        </p>
-                        <img class="about_us__illustration" src="img/about_us.svg" alt="illustration">
+                <section class="about">
+                    <div class="container">
+                    <div class="about_inner">
+                        <h1 class="title">ABOUT US</h1>
+                        <p class="paragraph">The occupational traffic permit is one of the most
+                            important things in the company when carrying out
+                            freight transport. In fact, it is a prerequisite for doing
+                            business traffic at all.</p>
+                          <div class="about_us_notification">
+                            <p class="about_us_notification__text">
+                                How do you do when you need to obtain
+                                a commercial traffic permit for freight
+                                transport to your business?
+                            </p>
+                          </div>
                     </div>
-                    <div class="about_us_notification">
-                        <p class="about_us_notification__text">
-                            How do you do when you need to obtain <br> 
-                            a commercial traffic permit for freight <br>
-                            transport to your business?
-                        </p>
+                    <img class="about_illustration" src="img/about_us.svg" alt="about_us">
                     </div>
                 </section>
 
                 <section class="how_to_apply">
-                    <img class="how_to_apply__illustration" src="img/how_to_apply.svg" alt="how_to_apply">
-                        <div class="how_to_apply_text">
-                        <h2>HOW TO APPLY</h2>
-                        <p>When applying for a traffic permit, there are certain<br>
-                            requirements that you must meet that are included in<br>
-                            the examination: requirements for professional<br>
-                            knowledge, solid establishment, good reputation and<br>
-                            financial resources. Important to remember is to confirm<br>
-                            your application for a traffic permit by the company's<br>
+                    <div class="container">
+                    <img class="apply_illustration" src="img/how_to_apply.svg" alt="how_to_apply">
+                        <div class="apply_inner">
+                        <h1 class="title">HOW TO APPLY</h1>
+                        <p class="paragraph">When applying for a traffic permit, there are certain
+                            requirements that you must meet that are included in
+                            the examination: requirements for professional
+                            knowledge, solid establishment, good reputation and
+                            financial resources. Important to remember is to confirm
+                            your application for a traffic permit by the company's
                             company signer or CEO.</p>
                         </div>
+                    </div>
                 </section>
+
 
                 <section class="feedbacks">
                     <h3>ABOUT US</h3>
                     <h4> Our Awesome Clients</h4>
                     <div class="feedbacks__container">
                         <div class="feedback">
-                            <p>Yes, you will need to have the land owner<br>
-                                sign the permit application as the Permittee,<br>
-                                and you sign the permit as the Applicant or<br>
+                            <p>Yes, you will need to have the land owner
+                                sign the permit application as the Permittee,
+                                and you sign the permit as the Applicant or
                                 Agent for the Permittee.</p>
                             <div class="feedback_user_info">
-                            <img class="feedbacks__container-person" src="./img/user_icon.png" alt="person1">
-                            <h5>Isak Patterson</h5>
+
+                            <h5> <img class="feedbacks__container-person" src="./img/user_icon.png" alt="person1"> Isak Patterson</h5>
+
                             </div>
                         </div>
                         <div class="feedback">
@@ -86,8 +97,7 @@
                                 (TCS) who can generate and certify the<br>
                                 traffic control plan. </p>
                             <div class="feedback_user_info">
-                            <img class="feedbacks__container-person"  src="./img/user_icon.png" alt="person2">
-                            <h5>Simon Sandberg</h5>
+                            <h5> <img class="feedbacks__container-person"  src="./img/user_icon.png" alt="person2">Simon Sandberg</h5>
                             </div>
                         </div>
                         <div class="feedback">
@@ -96,14 +106,13 @@
                                 CDOT for the sole purpose of prohibiting<br>
                                 direct</p>
                             <div class="feedback_user_info">
-                            <img class="feedbacks__container-person"  src="./img/user_icon.png" alt="person3">
-                            <h5>Lorem Ipsum</h5>
+                            <h5><img class="feedbacks__container-person"  src="./img/user_icon.png" alt="person3">Lorem Ipsum</h5>
                             </div>
                         </div>
                     </div>
                 </section>
             </main>
-        </div>
+
 
     <footer class="footer">
         <div class="footer__container">
