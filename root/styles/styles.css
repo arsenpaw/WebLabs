@@ -1,0 +1,11 @@
+@import "normalize.css";
+
+@import "global.css";
+
+@import "header.css";
+
+@import "main.css";
+
+@import "media_quearies.css";
+
+@import "footer.css";
