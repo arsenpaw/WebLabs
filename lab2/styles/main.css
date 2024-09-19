@@ -60,6 +60,7 @@ text-align: left;
 .feedbacks__container-person h5, img{
     display: flex;
     align-items: flex-start;
+    animation: slideInRight;
 
 }
 
@@ -152,4 +153,21 @@ text-align: left;
         display: flex;
         flex-direction: column;
     }
+}
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+.navbar__logo {
+    animation: slideInRight;
+    animation-duration: 2s ;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+    animation-delay: 1s;
 }
