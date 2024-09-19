@@ -1,6 +1,8 @@
-const OPEN_CLASSNAME = "open";
-const navLinks = document.getElementById("nav-links");
-
-function toggleMenu(){
-    navLinks.classList.toggle(OPEN_CLASSNAME)
+const element = document.querySelector('.header__nav');
+const onClick = () => {
+  if (element.style.display === "none") {
+        element.style.display = "block";
+    } else {
+        element.style.display = "none";
+    }
 }
