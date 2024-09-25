@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoo Manager</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <header class="navbar">
+        <div class="brand">My Zoo</div>
+        <nav class="nav-links">
+            <a href="#">My Animals</a>
+            <a href="#" onclick={openModal('create-modal')}>Create Animal</a>
+            <input type="text" placeholder="Type something...">
+            <button class="search-btn">Search</button>
+            <button class="clear-btn">Clear</button>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <aside class="sidebar">
+            <h3>Manage animals</h3>
+            <label for="sort-expensive">
+                Sort by the most expensive animals
+                <input type="checkbox" id="sort-expensive">
+            </label>
+            <button class="count-btn">Count</button>
+            <div class="total-expenses">
+                <span>Total expenses:</span>
+                <span>$1250.5</span>
+            </div>
+        </aside>
+
+        <section class="animal-cards">
+            <div class="animal-card">
+                <div class="animal-image">
+                    <img src="placeholder.png" alt="Animal Image">
+                </div>
+                <div class="animal-info">
+                    <h4>Ocelot</h4>
+                    <p>It lives in South and Central America, as far up as Mexico. It has been reported as far north as
+                        Texas.</p>
+                    <small>Last updated 3 mins ago</small>
+                </div>
+                <div class="animal-actions">
+                    <button class="edit-btn" onclick="openModal()">Edit</button>
+                    <button class="remove-btn" onclick="removeAnimal(this)">Remove</button>
+                </div>
+            </div>
+            <!-- Add more animal cards here as needed -->
+        </section>
+    </main>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="animalModal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('animalModal')">&times;</span>
+        <h2>Edit Animal</h2>
+        <form id="animalForm">
+            <label for="animal-name">Name:</label>
+            <input type="text" id="animal-name" name="name" value="Ocelot">
+
+            <label for="animal-description">Description:</label>
+            <textarea id="animal-description" name="description">It lives in South and Central America, as far up as Mexico.</textarea>
+
+            <label for="animal-expense">Expense:</label>
+            <input type="number" id="animal-expense" name="expense" value="100.5">
+
+            <button type="submit">Save</button>
+        </form>
+    </div>
+</div>
+<!--Create Modal -->
+<div class="create-animal-modal" id="create-modal">
+    <div class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-lg">
+        <span class="close-btn" onclick={closeModal('create-modal')}>&times;</span>
+        <h2 class="text-2xl font-bold mb-6">Create Animal</h2>
+        <form id="animalCreateForm">
+            <div class="mb-4">
+                <label for="animal-id" class="block text-gray-700">ID:</label>
+                <input type="number" id="animal-id" name="id" class="w-full px-3 py-2 border rounded-lg" required>
+            </div>
+            <div class="mb-4">
+                <label for="animal-name" class="block text-gray-700">Name:</label>
+                <input type="text" id="new-animal-name" name="name" class="w-full px-3 py-2 border rounded-lg" required>
+            </div>
+            <div class="mb-4">
+                <label for="animal-description" class="block text-gray-700">Description:</label>
+                <textarea id="new-animal-description" name="description" class="w-full px-3 py-2 border rounded-lg"
+                          required></textarea>
+            </div>
+            <div class="mb-4">
+                <label for="animal-imageUrl" class="block text-gray-700">Image URL:</label>
+                <input type="url" id="animal-imageUrl" name="imageUrl" class="w-full px-3 py-2 border rounded-lg"
+                       required>
+            </div>
+            <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-lg">Save</button>
+        </form>
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
