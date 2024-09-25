@@ -12,8 +12,7 @@
     <header class="navbar">
         <div class="brand">My Zoo</div>
         <nav class="nav-links">
-            <a href="#">My Animals</a>
-            <a href="#" onclick={openModal('create-modal')}>Create Animal</a>
+            <a href="#" onclick={openModal('create-modal')}>Add printer</a>
             <input type="text" placeholder="Type something...">
             <button class="search-btn">Search</button>
             <button class="clear-btn">Clear</button>
@@ -21,18 +20,6 @@
     </header>
 
     <main class="main-content">
-        <aside class="sidebar">
-            <h3>Manage animals</h3>
-            <label for="sort-expensive">
-                Sort by the most expensive animals
-                <input type="checkbox" id="sort-expensive">
-            </label>
-            <button class="count-btn">Count</button>
-            <div class="total-expenses">
-                <span>Total expenses:</span>
-                <span>$1250.5</span>
-            </div>
-        </aside>
 
         <section class="animal-cards">
             <div class="animal-card">
@@ -55,47 +42,28 @@
     </main>
 </div>
 
-<!-- Modal -->
-<div class="modal" id="animalModal">
-    <div class="modal-content">
-        <span class="close-btn" onclick="closeModal('animalModal')">&times;</span>
-        <h2>Edit Animal</h2>
-        <form id="animalForm">
-            <label for="animal-name">Name:</label>
-            <input type="text" id="animal-name" name="name" value="Ocelot">
 
-            <label for="animal-description">Description:</label>
-            <textarea id="animal-description" name="description">It lives in South and Central America, as far up as Mexico.</textarea>
-
-            <label for="animal-expense">Expense:</label>
-            <input type="number" id="animal-expense" name="expense" value="100.5">
-
-            <button type="submit">Save</button>
-        </form>
-    </div>
-</div>
 <!--Create Modal -->
-<div class="create-animal-modal" id="create-modal">
+<div class="create-printer-modal" id="create-modal">
     <div class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-lg">
         <span class="close-btn" onclick={closeModal('create-modal')}>&times;</span>
-        <h2 class="text-2xl font-bold mb-6">Create Animal</h2>
-        <form id="animalCreateForm">
+        <h2 class="text-2xl font-bold mb-6">Add printer</h2>
+        <form id="printerCreateForm">
             <div class="mb-4">
-                <label for="animal-id" class="block text-gray-700">ID:</label>
-                <input type="number" id="animal-id" name="id" class="w-full px-3 py-2 border rounded-lg" required>
+                <label for="new-printer-name" class="block text-gray-700">Title:</label>
+                <input type="text" id="new-printer-name" name="Title" class="w-full px-3 py-2 border rounded-lg" required>
             </div>
             <div class="mb-4">
-                <label for="animal-name" class="block text-gray-700">Name:</label>
-                <input type="text" id="new-animal-name" name="name" class="w-full px-3 py-2 border rounded-lg" required>
+                <label for="new-printer-speed" class="block text-gray-700">PPS:</label>
+                <input id="new-printer-speed" type="number" min="1" step="any" class="w-full px-3 py-2 border rounded-lg" required>
             </div>
             <div class="mb-4">
-                <label for="animal-description" class="block text-gray-700">Description:</label>
-                <textarea id="new-animal-description" name="description" class="w-full px-3 py-2 border rounded-lg"
-                          required></textarea>
+                <label for="new-printer-cost" class="block text-gray-700">Cost:</label>
+                <input id="new-printer-cost" name="Cost"  type="number" min="1" step="any"class="w-full px-3 py-2 border rounded-lg" required></input>
             </div>
             <div class="mb-4">
-                <label for="animal-imageUrl" class="block text-gray-700">Image URL:</label>
-                <input type="url" id="animal-imageUrl" name="imageUrl" class="w-full px-3 py-2 border rounded-lg"
+                <label for="printer-imageUrl" class="block text-gray-700">Image URL:</label>
+                <input type="url" id="printer-imageUrl" name="imageUrl" class="w-full px-3 py-2 border rounded-lg"
                        required>
             </div>
             <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-lg">Save</button>

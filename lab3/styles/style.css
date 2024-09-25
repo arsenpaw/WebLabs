@@ -116,7 +116,7 @@
 
 
 /* Modal styles */
-.modal, .create-animal-modal {
+.modal, .create-printer-modal {
     display: none;
     position: fixed;
     z-index: 1;
