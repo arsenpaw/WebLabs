@@ -6,10 +6,7 @@ import PrinterModel from "./models/PrinterModel";
 // - швидкодія друку (в сторінках за хвилину)
 // - ціна (в грвнях)
 
-let records: PrinterModel[] = [
-    new PrinterModel(1, "Dog", "A dog is a type of domesticated animal. Known for its loyalty and faithfulness.",
-        "https://www.pexels.com/photo/adorable-animal-blur-canine-356378/")
-];
+let records: PrinterModel[] = [];
 
 function openModal(id: string) {
     console.log("openModal", id);
