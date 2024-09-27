@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "target": "ES5", // You can still target ES5 if necessary
+    "lib": ["ES2015", "DOM"], // Include ES2015 for Promises and DOM for browser APIs
+    "strict": true, // Enable strict type-checking options
+    "module": "commonjs", // Use commonjs modules for Node.js pr
+  }
+}
