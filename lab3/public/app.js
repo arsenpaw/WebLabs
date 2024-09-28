@@ -4,17 +4,40 @@
 // - швидкодія друку (в сторінках за хвилину)
 // - ціна (в грвнях)
 const printers = [
-    { name: 'Printer A', pagePerMinute: 20, imgUrl: 'https://example.com/printerA.jpg', cost: 5000 },
-    { name: 'Printer B', pagePerMinute: 25, imgUrl: 'https://example.com/printerB.jpg', cost: 6000 },
-    { name: 'Printer C', pagePerMinute: 30, imgUrl: 'https://example.com/printerC.jpg', cost: 7000 },
-    { name: 'Printer D', pagePerMinute: 35, imgUrl: 'https://example.com/printerD.jpg', cost: 8000 }
+    { name: 'Printer C', pagePerMinute: 30, imgUrl: 'https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcSTHt5Y0gsuU8cs8R8T8zVwi1CCbD1hvMihoA9fFK97ey2pMJg4jW2Ol1UNkg2L6UXA53pg67JVdf8gf7kwkOXeFgD9iiRsNjWfqiHaV9WALNyaULR7NNoD', cost: 7000 },
+    { name: 'Printer A', pagePerMinute: 20, imgUrl: 'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcS7ehAyjqHcCcKUKiMOdKybNUBfkHFK4Pcwj90h--zrLlNZxcaZ_oua2r-1sho-nZCKp1PWrWCCrr7jxvVxVqUNYbiPvfu10DdDAUQlZZc9Z64Fh-jJ63D3', cost: 5000 },
+    { name: 'Printer B', pagePerMinute: 25, imgUrl: 'https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQAYYxb0tE58vPtTncwZcuyl6o_7XopS9Blgw5TxsFGn3OuOHkjtM5I83hIG3LZliyJOu_bUlRq5P29nkawrKicTuDzICc8xGet8zuEgPbBeZO20SY55guQJ_ry', cost: 6000 },
+    { name: 'Printer D', pagePerMinute: 35, imgUrl: 'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSzct2CL5PJ0qyfRxnau6Tm4XFCvp1y0QJtUakbXiSkoGkkIpT4uGtdLVhw8Uia9NE9fWXFvBuV8fUGa13ojvUGvCXnCMtHajqwhkrtNUBa4ldj2bupSh5K', cost: 8000 }
 ];
 const openModalCreate = document.getElementById("open-modal-create-button");
 const submitCreateFrom = document.getElementById("submit-create-form");
-const mainPageShow = document.getElementById('main-page');
+const closeModalButton = document.getElementById('cross-create-button');
+const searchInput = document.getElementById('search-input');
+const searchButton = document.getElementById('search-button');
+const isSortByPPS = document.getElementById('sort-by-pps');
+const totalPtinters = document.getElementById('total-printers');
+isSortByPPS === null || isSortByPPS === void 0 ? void 0 : isSortByPPS.addEventListener('click', () => {
+    if (isSortByPPS.checked) {
+        let sortedPrinters = printers.slice(0).sort((a, b) => b.pagePerMinute - a.pagePerMinute);
+        drawList(sortedPrinters);
+    }
+    else {
+        drawList(printers);
+    }
+});
 openModalCreate === null || openModalCreate === void 0 ? void 0 : openModalCreate.addEventListener('click', () => {
     console.log('click');
     openModal('create-modal');
+});
+closeModalButton === null || closeModalButton === void 0 ? void 0 : closeModalButton.addEventListener('click', () => {
+    closeModal('create-modal');
+});
+searchButton === null || searchButton === void 0 ? void 0 : searchButton.addEventListener('click', () => {
+    const searchValue = searchInput.value;
+    console.log(searchValue);
+    const filteredPrinters = printers.filter((printer) => printer.name.toLowerCase()
+        .includes(searchValue.toLowerCase()));
+    drawList(filteredPrinters);
 });
 function openModal(id) {
     const element = document.getElementById(id);
@@ -44,20 +67,23 @@ submitCreateFrom === null || submitCreateFrom === void 0 ? void 0 : submitCreate
     closeModal('create-modal');
     drawList(printers);
 });
-const drawList = (list) => {
+const removePrinter = (index) => {
+    console.log("remove", index);
+    printers.splice(index, 1);
+    drawList(printers);
+};
+const drawList = (printerList) => {
+    totalPtinters.textContent = printerList.length.toString();
     const mainPageShow = document.getElementById("main-page");
     if (!mainPageShow) {
         return;
     }
-    // Clear previous content
     mainPageShow.innerHTML = '';
-    // Create div for flex layout
     const rowDiv = document.createElement('div');
-    rowDiv.className = "flex flex-wrap justify-start gap-6"; // Flex row layout with gaps between cards
-    // Loop through the list and append each printer card
-    list.forEach((el, idx) => {
+    rowDiv.className = "flex flex-wrap justify-start gap-6";
+    printerList.forEach((el, idx) => {
         const card = document.createElement('div');
-        card.className = "printer-card bg-white rounded-lg shadow-md overflow-hidden w-full md:w-1/3 lg:w-1/4"; // Set width for responsiveness
+        card.className = "printer-card bg-white rounded-lg shadow-md overflow-hidden w-full md:w-1/3 lg:w-1/4";
         card.innerHTML = `
             <div class="printer-image">
                 <img src="${el.imgUrl}" alt="Printer Image" class="w-full h-48 object-cover">
@@ -65,16 +91,19 @@ const drawList = (list) => {
             <div class="printer-info p-4">
                 <h4 class="text-xl font-semibold">${el.name}</h4>
                 <p class="text-gray-600">Speed: ${el.pagePerMinute} pages per minute</p>
-                <p class="text-gray-600">Price: ₴${el.cost}</p>
-            </div>
-            <div class="printer-actions flex justify-between p-4">
-                <button class="edit-btn bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600" onclick="openModal('edit-printer')">Edit</button>
-                <button class="remove-btn bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600" onclick="removePrinter(${idx})">Remove</button>
+                <p class="text-gray-600">Price: ${el.cost} ₴</p>
             </div>
         `;
+        const actionsDiv = document.createElement('div');
+        actionsDiv.className = "printer-actions flex justify-between p-4";
+        const removeButton = document.createElement('button');
+        removeButton.className = "remove-btn bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600";
+        removeButton.textContent = 'Remove';
+        removeButton.addEventListener('click', () => removePrinter(idx));
+        actionsDiv.appendChild(removeButton);
+        card.appendChild(actionsDiv);
         rowDiv.appendChild(card);
     });
-    // Append the row div to the main page
     mainPageShow.appendChild(rowDiv);
 };
 drawList(printers);
