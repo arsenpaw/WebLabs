@@ -16,6 +16,7 @@ const searchInput = document.getElementById('search-input');
 const searchButton = document.getElementById('search-button');
 const isSortByPPS = document.getElementById('sort-by-pps');
 const totalPtinters = document.getElementById('total-printers');
+const crossEditButton = document.getElementById('cross-edit-button');
 isSortByPPS === null || isSortByPPS === void 0 ? void 0 : isSortByPPS.addEventListener('click', () => {
     if (isSortByPPS.checked) {
         let sortedPrinters = printers.slice(0).sort((a, b) => b.pagePerMinute - a.pagePerMinute);
@@ -31,6 +32,10 @@ openModalCreate === null || openModalCreate === void 0 ? void 0 : openModalCreat
 });
 closeModalButton === null || closeModalButton === void 0 ? void 0 : closeModalButton.addEventListener('click', () => {
     closeModal('create-modal');
+});
+crossEditButton === null || crossEditButton === void 0 ? void 0 : crossEditButton.addEventListener('click', () => {
+    console.log('close ');
+    closeModal('edit-modal');
 });
 searchButton === null || searchButton === void 0 ? void 0 : searchButton.addEventListener('click', () => {
     const searchValue = searchInput.value;
@@ -72,6 +77,32 @@ const removePrinter = (index) => {
     printers.splice(index, 1);
     drawList(printers);
 };
+const editPrinter = (index) => {
+    const printer = printers[index];
+    const form = document.getElementById('printerEditForm');
+    form['Title'].value = printer.name;
+    form['PPS'].value = printer.pagePerMinute;
+    form['Cost'].value = printer.cost;
+    form['imageUrl'].value = printer.imgUrl;
+    openModal('edit-modal');
+    const submitEditForm = document.getElementById("submit-edit-form");
+    submitEditForm === null || submitEditForm === void 0 ? void 0 : submitEditForm.addEventListener('click', (event) => {
+        event.preventDefault();
+        const formData = new FormData(form);
+        const updatedName = formData.get('Title');
+        const updatedPPS = parseFloat(formData.get('PPS'));
+        const updatedCost = parseFloat(formData.get('Cost'));
+        const updatedImageUrl = formData.get('imageUrl');
+        printers[index] = {
+            name: updatedName,
+            pagePerMinute: updatedPPS,
+            cost: updatedCost,
+            imgUrl: updatedImageUrl,
+        };
+        closeModal('edit-modal');
+        drawList(printers);
+    });
+};
 const drawList = (printerList) => {
     totalPtinters.textContent = printerList.length.toString();
     const mainPageShow = document.getElementById("main-page");
@@ -100,7 +131,12 @@ const drawList = (printerList) => {
         removeButton.className = "remove-btn bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600";
         removeButton.textContent = 'Remove';
         removeButton.addEventListener('click', () => removePrinter(idx));
+        const editButton = document.createElement('edit-button');
+        editButton.className = "edit-btn bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600";
+        editButton.textContent = 'Edit';
+        editButton.addEventListener('click', () => editPrinter(idx));
         actionsDiv.appendChild(removeButton);
+        actionsDiv.appendChild(editButton);
         card.appendChild(actionsDiv);
         rowDiv.appendChild(card);
     });

@@ -1,0 +1,17 @@
+
+.header {
+    margin-left: 4%;
+    background-image: url("static/title.png");
+    background-size: cover;
+    padding-bottom: 25%;
+    color: black;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .header h1 {
+    margin-left: 10%;
+    max-width: 40%;
+    text-align: left;
+  }
+  

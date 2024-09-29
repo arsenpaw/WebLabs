@@ -19,8 +19,8 @@ const searchInput = document.getElementById('search-input') as HTMLFormElement;
 const searchButton = document.getElementById('search-button') as HTMLFormElement;
 const isSortByPPS = document.getElementById('sort-by-pps') as HTMLFormElement;
 const totalPtinters = document.getElementById('total-printers') as HTMLFormElement;
+const crossEditButton = document.getElementById('cross-edit-button') as HTMLFormElement;
 isSortByPPS?.addEventListener('click', () => {
-
     if (isSortByPPS.checked) {
         let sortedPrinters = printers.slice(0).sort((a, b) =>  b.pagePerMinute - a.pagePerMinute );
         drawList(sortedPrinters);
@@ -30,11 +30,14 @@ isSortByPPS?.addEventListener('click', () => {
     }
 });
 openModalCreate?.addEventListener('click', () => {
-    console.log('click')
     openModal('create-modal');
 });
 closeModalButton?.addEventListener('click', () => {
     closeModal('create-modal');
+});
+crossEditButton?.addEventListener('click', () => {
+    console.log('close ')
+    closeModal('edit-modal');
 });
 searchButton?.addEventListener('click', () => {
     const searchValue:string = searchInput.value as string;
@@ -59,7 +62,6 @@ submitCreateFrom?.addEventListener('click',(event) => {
     const form = document.getElementById('printerCreateForm') as HTMLFormElement;
      event.preventDefault();
      const formData:FormData = new FormData(form);
-        // Access form data by field names
         const title = formData.get('Title') as string;
         const pps = parseFloat(formData.get('PPS') as string);
         const cost = parseFloat(formData.get('Cost') as string) ;
@@ -79,6 +81,38 @@ const removePrinter = (index: number) => {
     printers.splice(index, 1);
     drawList(printers);
 }
+
+const editPrinter = (index: number) => {
+    const printer = printers[index];
+
+    const form = document.getElementById('printerEditForm') as HTMLFormElement;
+    form['Title'].value = printer.name;
+    form['PPS'].value = printer.pagePerMinute;
+    form['Cost'].value = printer.cost;
+    form['imageUrl'].value = printer.imgUrl;
+
+    openModal('edit-modal');
+
+    const submitEditForm = document.getElementById("submit-edit-form") as HTMLFormElement;
+    submitEditForm?.addEventListener('click', (event) => {
+        event.preventDefault();
+        const formData: FormData = new FormData(form);
+        const updatedName = formData.get('Title') as string;
+        const updatedPPS = parseFloat(formData.get('PPS') as string);
+        const updatedCost = parseFloat(formData.get('Cost') as string);
+        const updatedImageUrl = formData.get('imageUrl') as string;
+
+        printers[index] = {
+            name: updatedName,
+            pagePerMinute: updatedPPS,
+            cost: updatedCost,
+            imgUrl: updatedImageUrl,
+        };
+
+        closeModal('edit-modal');
+        drawList(printers);
+    });
+};
 
 const drawList = (printerList: Array<PrinterModel>) => {
     totalPtinters.textContent = printerList.length.toString();
@@ -113,7 +147,13 @@ const drawList = (printerList: Array<PrinterModel>) => {
         removeButton.textContent = 'Remove';
         removeButton.addEventListener('click', () => removePrinter(idx));
 
+        const editButton = document.createElement('edit-button');
+        editButton.className = "edit-btn bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600";
+        editButton.textContent = 'Edit';
+        editButton.addEventListener('click', () => editPrinter(idx));
+
         actionsDiv.appendChild(removeButton);
+        actionsDiv.appendChild(editButton);
 
         card.appendChild(actionsDiv);
         rowDiv.appendChild(card);
