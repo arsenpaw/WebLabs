@@ -17,6 +17,9 @@ const searchButton = document.getElementById('search-button');
 const isSortByPPS = document.getElementById('sort-by-pps');
 const totalPtinters = document.getElementById('total-printers');
 const crossEditButton = document.getElementById('cross-edit-button');
+const openExeptionModalElement = document.getElementById('exceptionModal');
+const closeExeptionModalElement = document.getElementById('exceptionModalClose');
+const exceptionMessage = document.getElementById('exceptionMessage');
 isSortByPPS === null || isSortByPPS === void 0 ? void 0 : isSortByPPS.addEventListener('click', () => {
     if (isSortByPPS.checked) {
         let sortedPrinters = printers.slice(0).sort((a, b) => b.pagePerMinute - a.pagePerMinute);
@@ -26,20 +29,25 @@ isSortByPPS === null || isSortByPPS === void 0 ? void 0 : isSortByPPS.addEventLi
         drawList(printers);
     }
 });
+const openExeptionModal = (message) => {
+    exceptionMessage.textContent = message;
+    openModal('exceptionModal');
+    openExeptionModalElement.classList.remove('hidden');
+};
+closeExeptionModalElement === null || closeExeptionModalElement === void 0 ? void 0 : closeExeptionModalElement.addEventListener('click', () => {
+    closeModal('exceptionModal');
+});
 openModalCreate === null || openModalCreate === void 0 ? void 0 : openModalCreate.addEventListener('click', () => {
-    console.log('click');
     openModal('create-modal');
 });
 closeModalButton === null || closeModalButton === void 0 ? void 0 : closeModalButton.addEventListener('click', () => {
     closeModal('create-modal');
 });
 crossEditButton === null || crossEditButton === void 0 ? void 0 : crossEditButton.addEventListener('click', () => {
-    console.log('close ');
     closeModal('edit-modal');
 });
 searchButton === null || searchButton === void 0 ? void 0 : searchButton.addEventListener('click', () => {
     const searchValue = searchInput.value;
-    console.log(searchValue);
     const filteredPrinters = printers.filter((printer) => printer.name.toLowerCase()
         .includes(searchValue.toLowerCase()));
     drawList(filteredPrinters);
@@ -60,18 +68,44 @@ submitCreateFrom === null || submitCreateFrom === void 0 ? void 0 : submitCreate
     const form = document.getElementById('printerCreateForm');
     event.preventDefault();
     const formData = new FormData(form);
-    // Access form data by field names
     const title = formData.get('Title');
     const pps = parseFloat(formData.get('PPS'));
     const cost = parseFloat(formData.get('Cost'));
     const imageUrl = formData.get('imageUrl');
-    console.log(printers);
-    let p = { name: title, pagePerMinute: pps, imgUrl: imageUrl, cost: cost };
-    printers.push(p);
+    let t = { name: title, pagePerMinute: pps, imgUrl: imageUrl, cost: cost };
+    let isValid = validateInput(t);
+    if (!isValid) {
+        return;
+    }
+    printers.push(t);
     form.reset();
     closeModal('create-modal');
     drawList(printers);
 });
+const validateInput = (printer) => {
+    if (!printer.name) {
+        openExeptionModal("Name is required");
+        return false;
+    }
+    if (!printer.pagePerMinute || printer.pagePerMinute <= 0) {
+        openExeptionModal("Page per minute (PSC) is required and must be greater than 0");
+        return false;
+    }
+    if (!printer.cost || printer.cost <= 0) {
+        openExeptionModal("Cost is required and must be greater than 0");
+        return false;
+    }
+    if (!printer.imgUrl) {
+        openExeptionModal("Image URL is required");
+        return false;
+    }
+    const imageReg = /[\/.](gif|jpg|jpeg|tiff|png)$/i;
+    if (!imageReg.test(printer.imgUrl)) {
+        openExeptionModal("Invalid image URL format. Accepted formats: gif, jpg, jpeg, tiff, png");
+        return false;
+    }
+    return true;
+};
 const removePrinter = (index) => {
     console.log("remove", index);
     printers.splice(index, 1);
@@ -93,6 +127,10 @@ const editPrinter = (index) => {
         const updatedPPS = parseFloat(formData.get('PPS'));
         const updatedCost = parseFloat(formData.get('Cost'));
         const updatedImageUrl = formData.get('imageUrl');
+        let isValid = validateInput({ name: updatedName, pagePerMinute: updatedPPS, cost: updatedCost, imgUrl: updatedImageUrl });
+        if (!isValid) {
+            return;
+        }
         printers[index] = {
             name: updatedName,
             pagePerMinute: updatedPPS,
@@ -129,11 +167,9 @@ const drawList = (printerList) => {
         actionsDiv.className = "printer-actions flex justify-between p-4";
         const removeButton = document.createElement('button');
         removeButton.className = "remove-btn bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600";
-        removeButton.textContent = 'Remove';
         removeButton.addEventListener('click', () => removePrinter(idx));
         const editButton = document.createElement('edit-button');
         editButton.className = "edit-btn bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600";
-        editButton.textContent = 'Edit';
         editButton.addEventListener('click', () => editPrinter(idx));
         actionsDiv.appendChild(removeButton);
         actionsDiv.appendChild(editButton);

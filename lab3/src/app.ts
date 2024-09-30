@@ -20,6 +20,10 @@ const searchButton = document.getElementById('search-button') as HTMLFormElement
 const isSortByPPS = document.getElementById('sort-by-pps') as HTMLFormElement;
 const totalPtinters = document.getElementById('total-printers') as HTMLFormElement;
 const crossEditButton = document.getElementById('cross-edit-button') as HTMLFormElement;
+const openExeptionModalElement = document.getElementById('exceptionModal') as HTMLFormElement;
+const closeExeptionModalElement =  document.getElementById('exceptionModalClose') as HTMLFormElement;
+const exceptionMessage = document.getElementById('exceptionMessage') as HTMLFormElement;
+
 isSortByPPS?.addEventListener('click', () => {
     if (isSortByPPS.checked) {
         let sortedPrinters = printers.slice(0).sort((a, b) =>  b.pagePerMinute - a.pagePerMinute );
@@ -29,6 +33,15 @@ isSortByPPS?.addEventListener('click', () => {
         drawList(printers);
     }
 });
+
+const openExeptionModal = (message:string) => {
+    exceptionMessage.textContent = message;
+    openModal('exceptionModal')
+    openExeptionModalElement.classList.remove('hidden');
+};
+closeExeptionModalElement?.addEventListener('click', () => {
+   closeModal('exceptionModal');
+});
 openModalCreate?.addEventListener('click', () => {
     openModal('create-modal');
 });
@@ -36,16 +49,15 @@ closeModalButton?.addEventListener('click', () => {
     closeModal('create-modal');
 });
 crossEditButton?.addEventListener('click', () => {
-    console.log('close ')
     closeModal('edit-modal');
 });
 searchButton?.addEventListener('click', () => {
     const searchValue:string = searchInput.value as string;
-       console.log(searchValue)
     const filteredPrinters = printers.filter((printer) => printer.name.toLowerCase()
                                                                             .includes(searchValue.toLowerCase()));
     drawList(filteredPrinters);
 });
+
 function openModal(id: string) {
     const element = document.getElementById(id);
     if (element) {
@@ -66,16 +78,42 @@ submitCreateFrom?.addEventListener('click',(event) => {
         const pps = parseFloat(formData.get('PPS') as string);
         const cost = parseFloat(formData.get('Cost') as string) ;
         const imageUrl = formData.get('imageUrl') as string;
-        console.log(printers);
-        let p:PrinterModel = {name: title, pagePerMinute: pps, imgUrl: imageUrl, cost: cost}
-        printers.push(p);
+        let t:PrinterModel = {name: title, pagePerMinute: pps, imgUrl: imageUrl, cost: cost}
+        let isValid:boolean = validateInput(t);
+        if (!isValid) {
+            return;
+        }
+        printers.push(t);
         form.reset();
         closeModal('create-modal');
         drawList(printers);
     }
 );
 
-
+const validateInput = (printer: PrinterModel): boolean => {
+    if (!printer.name) {
+        openExeptionModal("Name is required");
+        return false;
+    }
+    if (!printer.pagePerMinute || printer.pagePerMinute <= 0) {
+        openExeptionModal("Page per minute (PSC) is required and must be greater than 0");
+        return false;
+    }
+    if (!printer.cost || printer.cost <= 0) {
+        openExeptionModal("Cost is required and must be greater than 0");
+        return false;
+    }
+    if (!printer.imgUrl) {
+        openExeptionModal("Image URL is required");
+        return false;
+    }
+    const imageReg = /[\/.](gif|jpg|jpeg|tiff|png)$/i;
+    if (!imageReg.test(printer.imgUrl)) {
+        openExeptionModal("Invalid image URL format. Accepted formats: gif, jpg, jpeg, tiff, png");
+        return false;
+    }
+    return true;
+};
 const removePrinter = (index: number) => {
     console.log("remove", index);
     printers.splice(index, 1);
@@ -101,7 +139,10 @@ const editPrinter = (index: number) => {
         const updatedPPS = parseFloat(formData.get('PPS') as string);
         const updatedCost = parseFloat(formData.get('Cost') as string);
         const updatedImageUrl = formData.get('imageUrl') as string;
-
+        let isValid:boolean = validateInput({ name: updatedName, pagePerMinute: updatedPPS, cost: updatedCost, imgUrl: updatedImageUrl });
+        if (!isValid) {
+            return;
+        }
         printers[index] = {
             name: updatedName,
             pagePerMinute: updatedPPS,
@@ -144,12 +185,10 @@ const drawList = (printerList: Array<PrinterModel>) => {
 
         const removeButton = document.createElement('button');
         removeButton.className = "remove-btn bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600";
-        removeButton.textContent = 'Remove';
         removeButton.addEventListener('click', () => removePrinter(idx));
 
         const editButton = document.createElement('edit-button');
         editButton.className = "edit-btn bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600";
-        editButton.textContent = 'Edit';
         editButton.addEventListener('click', () => editPrinter(idx));
 
         actionsDiv.appendChild(removeButton);
