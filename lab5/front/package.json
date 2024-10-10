@@ -1,0 +1,28 @@
+{
+  "name": "your-project-name",
+  "version": "1.0.0",
+  "description": "A brief description of your project",
+  "main": "public/index.js",
+  "scripts": {
+    "build": " npx webpack",
+    "start": "node public/app.js",
+    "dev": "tsc --watch"
+  },
+  "keywords": [],
+  "author": "Your Name",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@types/node": "^22.7.5",
+    "axios": "^1.7.7",
+    "process": "^0.11.10",
+    "webpack": "^5.95.0"
+  },
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.25.7",
+    "babel-loader": "^9.2.1",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.6.3",
+    "webpack-cli": "^5.1.4"
+  }
+}
