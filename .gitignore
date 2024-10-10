@@ -5,3 +5,4 @@
 node_modules
 .DS_Store
 /lab5/front/node_modules
+/lab5/backend/PrinterService/.vs
