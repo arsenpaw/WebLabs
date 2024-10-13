@@ -2,6 +2,8 @@ import PrinterRequest from "./interfaces/PrinterRequest"
 import {GetPrintersList} from "./requests/GetPrintersList";
 import {GetPrinter} from "./requests/GetPrinter";
 import {EditPrinter} from "./requests/EditPrinter";
+import {RemovePrinter} from "./requests/RemovePrinter";
+import {AddPrinter} from "./requests/AddPrinter";
 // Створити клас “Принтер”
 // котрий містить поля:
 // - назва
@@ -64,24 +66,23 @@ function closeModal(id: string) {
         elementHide.classList.add('hidden');
     }
 }
-submitCreateFrom?.addEventListener('click',(event) => {
+submitCreateFrom?.addEventListener('click',async (event) => {
     const form = document.getElementById('printerCreateForm') as HTMLFormElement;
-     event.preventDefault();
+      event.preventDefault();
      const formData:FormData = new FormData(form);
-        const title = formData.get('Title') as string;
+        const name = formData.get('Name') as string;
         const pps = parseFloat(formData.get('PPS') as string);
-        const cost = parseFloat(formData.get('Cost') as string) ;
+        const cost = parseFloat(formData.get('Price') as string) ;
         const imageUrl = formData.get('imageUrl') as string;
-        let addModel:PrinterRequest = {name: title, pps: pps, imageUrl: imageUrl, price: cost}
+        let addModel:PrinterRequest = {name: name, pps: pps, imageUrl: imageUrl, price: cost}
         let isValid:boolean = validateInput(addModel);
         if (!isValid) {
             return;
         }
-        //printers.push(t);
-
+        await AddPrinter(formData);
         form.reset();
         closeModal('create-modal');
-        drawList();
+       await drawList();
     }
 );
 
@@ -111,34 +112,32 @@ const validateInput = (printer: PrinterRequest): boolean => {
 };
 const removePrinter = async (index: string) => {
     console.log("remove", index);
-    //printers.splice(index, 1);
+    await RemovePrinter(index);
     await drawList();
 }
 
 const editPrinter =async (index: string) => {
-    const printer =await GetPrinter(index.toString());
-
-    const form = document.getElementById('printerEditForm') as HTMLFormElement;
-    form['Title'].value = printer.name;
-    form['PPS'].value = printer.pps;
-    form['Cost'].value = printer.price;
-    form['imageUrl'].value = printer.imageUrl;
-
     openModal('edit-modal');
-
     const submitEditForm = document.getElementById("submit-edit-form") as HTMLFormElement;
+    const printer = await GetPrinter(index);
+     const form = document.getElementById('printerEditForm') as HTMLFormElement;
+    form['Name'].value = printer.name;
+    form['PPS'].value = printer.pps;
+    form['Price'].value = printer.price;
+    form['imageUrl'].value = printer.imageUrl;
     submitEditForm?.addEventListener('click', async (event) => {
-        event.preventDefault();
+        const form = document.getElementById('printerEditForm') as HTMLFormElement;
+        event.preventDefault()
         const formData: FormData = new FormData(form);
-        const updatedName = formData.get('Title') as string;
+        const updatedName = formData.get('Name') as string;
         const updatedPPS = parseFloat(formData.get('PPS') as string);
-        const updatedCost = parseFloat(formData.get('Cost') as string);
+        const updatedCost = parseFloat(formData.get('Price') as string);
         const updatedImageUrl = formData.get('imageUrl') as string;
         let isValid:boolean = validateInput({ name: updatedName, pps: updatedPPS, price: updatedCost, imageUrl: updatedImageUrl });
         if (!isValid) {
             return;
         }
-        await EditPrinter(index, {name: updatedName, pps: updatedPPS, price: updatedCost, imageUrl: updatedImageUrl});
+        await EditPrinter(index,formData);
         closeModal('edit-modal');
         await drawList();
     });
@@ -177,11 +176,11 @@ const drawList = async () => {
 
         const removeButton = document.createElement('button');
         removeButton.className = "remove-btn bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600";
-        removeButton.addEventListener('click', () => removePrinter(el.Id));
+        removeButton.addEventListener('click', () => removePrinter(el.id));
 
         const editButton = document.createElement('edit-button');
         editButton.className = "edit-btn bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600";
-        editButton.addEventListener('click', async () => await editPrinter(el.Id));
+        editButton.addEventListener('click', async () => await editPrinter(el.id));
 
         actionsDiv.appendChild(removeButton);
         actionsDiv.appendChild(editButton);
