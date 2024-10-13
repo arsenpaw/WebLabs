@@ -1,5 +1,5 @@
 export default interface PrinterRequest {
-  Id?: string;
+  id?: string;
   name: string;
   pps: number;
   imageUrl: string;
@@ -7,7 +7,8 @@ export default interface PrinterRequest {
 
 }
 export  interface PrinterResponce {
-  Id: string;
+
+  id: string;
   name: string;
   pps: number;
   imageUrl: string;
