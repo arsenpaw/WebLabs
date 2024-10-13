@@ -4,6 +4,8 @@ import {GetPrinter} from "./requests/GetPrinter";
 import {EditPrinter} from "./requests/EditPrinter";
 import {RemovePrinter} from "./requests/RemovePrinter";
 import {AddPrinter} from "./requests/AddPrinter";
+import {PrinterFilter} from "./interfaces/PrinterFilter";
+import {OrderByType} from "./Enums/OrderingEnum";
 // Створити клас “Принтер”
 // котрий містить поля:
 // - назва
@@ -22,13 +24,16 @@ const crossEditButton = document.getElementById('cross-edit-button') as HTMLForm
 const openExeptionModalElement = document.getElementById('exceptionModal') as HTMLFormElement;
 const closeExeptionModalElement =  document.getElementById('exceptionModalClose') as HTMLFormElement;
 const exceptionMessage = document.getElementById('exceptionMessage') as HTMLFormElement;
-
+let globalFIlters:PrinterFilter = {ppsOrderBy: OrderByType.ASCENDING};
+let globalWordSearch:string = '';
 isSortByPPS?.addEventListener('click', async () => {
+
     if (isSortByPPS.checked) {
-        await drawList();
+        globalFIlters = {ppsOrderBy: OrderByType.DESCENDING};
+       await drawList(globalFIlters,globalWordSearch);
     }
     else {
-         await drawList();
+         await drawList(undefined,globalWordSearch);
     }
 });
 
@@ -50,8 +55,8 @@ crossEditButton?.addEventListener('click', () => {
     closeModal('edit-modal');
 });
 searchButton?.addEventListener('click', async() => {
-    const searchValue:string = searchInput.value as string;
-    await drawList();
+     globalWordSearch = searchInput.value as string;
+    await drawList(globalFIlters,globalWordSearch);
 });
 
 function openModal(id: string) {
@@ -143,10 +148,8 @@ const editPrinter =async (index: string) => {
     });
 };
 
-const drawList = async () => {
-    const  printerList = await GetPrintersList();
-
-    console.log(printerList);
+const drawList = async (filters?: PrinterFilter,searchWord?:string) => {
+    const  printerList = await GetPrintersList(filters,searchWord);
     totalPtinters.textContent = printerList.length.toString();
     const mainPageShow = document.getElementById("main-page");
     if (!mainPageShow) {

@@ -1,10 +1,23 @@
 import PrinterRequest, {PrinterResponce} from "../interfaces/PrinterRequest";
+import {PrinterFilter} from "../interfaces/PrinterFilter";
+import apiClient from "./apiClient";
 
-export const GetPrintersList = async (): Promise<PrinterResponce[]> => {
-    console.log('http://localhost:5097/Printers');
-    const response = await fetch(process.env.BACKEND_URL + '/api/Printers');
-    if (!response.ok) {
+export const GetPrintersList = async (filters?: PrinterFilter,
+                                      searchWord?:string): Promise<PrinterResponce[]> => {
+
+  const queryParams: any = {};
+    if (filters) {
+        queryParams.ppsOrderBy = filters.ppsOrderBy;
+    }
+    if (searchWord) {
+        queryParams.searchWord = searchWord;
+    }
+
+     try {
+        const response = await apiClient.get(`Printers`, { params: queryParams });
+        return response.data;
+    } catch (error) {
         throw new Error('Failed to fetch printers');
     }
-    return await response.json();
+
 }
