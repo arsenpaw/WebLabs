@@ -23,16 +23,15 @@ builder.Services.AddDbContext<MyDBContext>(options =>
 builder.Services.AddScoped<IPrinterRepository, PrinterRepository>();
 builder.Host.UseSerilog((context, config) =>
 {
-    var logFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log.txt");
     config
         .ReadFrom.Configuration(configurationFile);
 });
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", builder =>
+    options.AddPolicy("AllowAll", builderPol =>
     {
-        builder.AllowAnyOrigin()
+        builderPol.AllowAnyOrigin()
             .AllowAnyMethod()
             .AllowAnyHeader();
     });

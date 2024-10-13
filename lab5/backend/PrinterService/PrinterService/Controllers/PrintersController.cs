@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
+using PrinterService.Extensions;
 using PrinterService.Interfaces;
 using PrinterService.Models.Dto;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using PrinterService.Models;
 
 namespace PrinterService.Controllers
 {
@@ -21,9 +23,9 @@ namespace PrinterService.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<PrinterDto>> Get()
+        public async Task<IEnumerable<PrinterDto>> Get([FromQuery] PrinterFilter? printerFilter, string? searchWord)
         {
-            return await _printerService.GetAllPrintersAsync();
+            return await _printerService.GetAllPrintersAsync(printerFilter, searchWord);
         }
 
         [HttpGet("{id:guid}")]
@@ -38,16 +40,17 @@ namespace PrinterService.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> PostConcrete([FromBody] PrinterDto printer)
+        public async Task<ActionResult> PostConcrete([FromForm] PrinterDto printer)
         {
             await _printerService.AddPrinterAsync(printer);
             return Ok();
         }
 
         [HttpPut("{id:guid}")]
-        public async Task<ActionResult<PrinterDto>> PutConcrete([FromBody] PrinterDto printer)
+        public async Task<ActionResult<PrinterDto>> PutConcrete(Guid id, [FromForm]PrinterDto printer)
         {
-            var updatedPrinter = await _printerService.UpdatePrinterAsync(printer);
+          
+            var updatedPrinter = await _printerService.UpdatePrinterAsync(id,printer);
             if (updatedPrinter == null)
             {
                 return NotFound();
