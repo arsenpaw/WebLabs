@@ -22,28 +22,27 @@ const isSortByPPS = document.getElementById('sort-by-pps') as HTMLFormElement;
 const totalPtinters = document.getElementById('total-printers') as HTMLFormElement;
 const crossEditButton = document.getElementById('cross-edit-button') as HTMLFormElement;
 const openExeptionModalElement = document.getElementById('exceptionModal') as HTMLFormElement;
-const closeExeptionModalElement =  document.getElementById('exceptionModalClose') as HTMLFormElement;
+const closeExeptionModalElement = document.getElementById('exceptionModalClose') as HTMLFormElement;
 const exceptionMessage = document.getElementById('exceptionMessage') as HTMLFormElement;
-let globalFIlters:PrinterFilter = {ppsOrderBy: OrderByType.ASCENDING};
-let globalWordSearch:string = '';
+let globalFIlters: PrinterFilter = {ppsOrderBy: OrderByType.ASCENDING};
+let globalWordSearch: string = '';
 isSortByPPS?.addEventListener('click', async () => {
 
     if (isSortByPPS.checked) {
         globalFIlters = {ppsOrderBy: OrderByType.DESCENDING};
-       await drawList(globalFIlters,globalWordSearch);
-    }
-    else {
-         await drawList(undefined,globalWordSearch);
+        await drawList(globalFIlters, globalWordSearch);
+    } else {
+        await drawList(undefined, globalWordSearch);
     }
 });
 
-const openExeptionModal = (message:string) => {
+const openExeptionModal = (message: string) => {
     exceptionMessage.textContent = message;
     openModal('exceptionModal')
     openExeptionModalElement.classList.remove('hidden');
 };
 closeExeptionModalElement?.addEventListener('click', () => {
-   closeModal('exceptionModal');
+    closeModal('exceptionModal');
 });
 openModalCreate?.addEventListener('click', () => {
     openModal('create-modal');
@@ -54,9 +53,9 @@ closeModalButton?.addEventListener('click', () => {
 crossEditButton?.addEventListener('click', () => {
     closeModal('edit-modal');
 });
-searchButton?.addEventListener('click', async() => {
-     globalWordSearch = searchInput.value as string;
-    await drawList(globalFIlters,globalWordSearch);
+searchButton?.addEventListener('click', async () => {
+    globalWordSearch = searchInput.value as string;
+    await drawList(globalFIlters, globalWordSearch);
 });
 
 function openModal(id: string) {
@@ -65,29 +64,31 @@ function openModal(id: string) {
         element.classList.remove('hidden');
     }
 }
+
 function closeModal(id: string) {
     const elementHide = document.getElementById(id);
     if (elementHide) {
         elementHide.classList.add('hidden');
     }
 }
-submitCreateFrom?.addEventListener('click',async (event) => {
-    const form = document.getElementById('printerCreateForm') as HTMLFormElement;
-      event.preventDefault();
-     const formData:FormData = new FormData(form);
+
+submitCreateFrom?.addEventListener('click', async (event) => {
+        const form = document.getElementById('printerCreateForm') as HTMLFormElement;
+        event.preventDefault();
+        const formData: FormData = new FormData(form);
         const name = formData.get('Name') as string;
         const pps = parseFloat(formData.get('PPS') as string);
-        const cost = parseFloat(formData.get('Price') as string) ;
+        const cost = parseFloat(formData.get('Price') as string);
         const imageUrl = formData.get('imageUrl') as string;
-        let addModel:PrinterRequest = {name: name, pps: pps, imageUrl: imageUrl, price: cost}
-        let isValid:boolean = validateInput(addModel);
+        let addModel: PrinterRequest = {name: name, pps: pps, imageUrl: imageUrl, price: cost}
+        let isValid: boolean = validateInput(addModel);
         if (!isValid) {
             return;
         }
         await AddPrinter(formData);
         form.reset();
         closeModal('create-modal');
-       await drawList();
+        await drawList();
     }
 );
 
@@ -121,11 +122,11 @@ const removePrinter = async (index: string) => {
     await drawList();
 }
 
-const editPrinter =async (index: string) => {
+const editPrinter = async (index: string) => {
     openModal('edit-modal');
     const submitEditForm = document.getElementById("submit-edit-form") as HTMLFormElement;
     const printer = await GetPrinter(index);
-     const form = document.getElementById('printerEditForm') as HTMLFormElement;
+    const form = document.getElementById('printerEditForm') as HTMLFormElement;
     form['Name'].value = printer.name;
     form['PPS'].value = printer.pps;
     form['Price'].value = printer.price;
@@ -138,18 +139,23 @@ const editPrinter =async (index: string) => {
         const updatedPPS = parseFloat(formData.get('PPS') as string);
         const updatedCost = parseFloat(formData.get('Price') as string);
         const updatedImageUrl = formData.get('imageUrl') as string;
-        let isValid:boolean = validateInput({ name: updatedName, pps: updatedPPS, price: updatedCost, imageUrl: updatedImageUrl });
+        let isValid: boolean = validateInput({
+            name: updatedName,
+            pps: updatedPPS,
+            price: updatedCost,
+            imageUrl: updatedImageUrl
+        });
         if (!isValid) {
             return;
         }
-        await EditPrinter(index,formData);
+        await EditPrinter(index, formData);
         closeModal('edit-modal');
         await drawList();
     });
 };
 
-const drawList = async (filters?: PrinterFilter,searchWord?:string) => {
-    const  printerList = await GetPrintersList(filters,searchWord);
+const drawList = async (filters?: PrinterFilter, searchWord?: string) => {
+    const printerList = await GetPrintersList(filters, searchWord);
     totalPtinters.textContent = printerList.length.toString();
     const mainPageShow = document.getElementById("main-page");
     if (!mainPageShow) {

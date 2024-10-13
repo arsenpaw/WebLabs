@@ -6,12 +6,11 @@ using PrinterService.Repositories;
 using PrinterService.Services;
 using Serilog;
 
-
 var builder = WebApplication.CreateBuilder(args);
 var configurationFile = new ConfigurationBuilder()
-       .SetBasePath(Directory.GetCurrentDirectory())
-       .AddJsonFile("appsettings.json")
-       .Build();
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json")
+    .Build();
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -20,15 +19,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<IPrinterService, CrudPrinterService>();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<MyDBContext>(options =>
-   options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<IPrinterRepository, PrinterRepository>();
 builder.Host.UseSerilog((context, config) =>
 {
     var logFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log.txt");
     config
-     .ReadFrom.Configuration(configurationFile);
-
-
+        .ReadFrom.Configuration(configurationFile);
 });
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 builder.Services.AddCors(options =>
@@ -36,8 +33,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAll", builder =>
     {
         builder.AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader();
+            .AllowAnyMethod()
+            .AllowAnyHeader();
     });
 });
 var app = builder.Build();
@@ -49,6 +46,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 
 app.UseHttpsRedirection();
 
