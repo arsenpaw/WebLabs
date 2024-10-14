@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using PrinterService;
 using PrinterService.Contexts;
 using PrinterService.Interfaces;
+using PrinterService.Middleware;
 using PrinterService.Repositories;
 using PrinterService.Services;
 using Serilog;
@@ -46,6 +47,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+//app.UseMiddleware<AbstractExceptionHandlerMiddleware>();
 
 app.UseHttpsRedirection();
 
