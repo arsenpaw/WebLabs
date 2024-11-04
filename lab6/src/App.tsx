@@ -6,23 +6,19 @@ import Main from "./pages/Main/Main";
 import NavBar from "./components/NavBar/NavBar";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import Footer from "./components/Footer/Footer";
+import Test from "./pages/Main/Test";
+import {AppProvider} from "./provider/AppProvider";
 function App() {
     const queryClient = new QueryClient();
     return (
-        <QueryClientProvider client={queryClient}>
-            <BrowserRouter basename="">
-                <NavBar />
-
+        <>
+            <NavBar/>
                 <div className="pages">
-                    <Routes>
-                        <Route path="/" element={<Main />} />
-                        {/*<Route path="/login" element={<Login />} />*/}
-                    </Routes>
-                    <Footer />
+                    <AppProvider/>
                 </div>
-            </BrowserRouter>
-        </QueryClientProvider>
-    );
+            <Footer/>
+        </>
+)
 }
 
 export default App;

@@ -1,8 +1,15 @@
 import {Button} from "@mui/material";
 
-const MainButton = () => {
+interface MainButtonProps {
+    text:string,
+    buttonClassName?: string
+
+}
+const MainButton = (props: MainButtonProps) => {
+
  return (
         <Button
+         className={props?.buttonClassName || ""}
             variant="contained"
             href="/"
             sx={{
@@ -12,7 +19,7 @@ const MainButton = () => {
                 fontSize: '1.25rem',
             }}
         >
-            Show More
+            {props.text}
         </Button>
     );
 }

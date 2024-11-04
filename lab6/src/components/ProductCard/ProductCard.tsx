@@ -2,9 +2,9 @@
 https://tinyurl.com/ffWishlistProductCard 
 */
 import React from "react";
-import IPrinter from "types/Printer";
+import IPrinterReques from "types/Printer";
 
-const ProductCard = (printer: IPrinter) => {
+const ProductCard = (printer: IPrinterReques) => {
   return (
       <div
           className="mx-auto mt-11 w-80 transform overflow-hidden rounded-lg bg-white dark:bg-slate-800 shadow-md duration-300 hover:scale-105 hover:shadow-lg">

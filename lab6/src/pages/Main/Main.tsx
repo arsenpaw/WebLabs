@@ -1,20 +1,21 @@
 import ProductCard from "../../components/ProductCard";
-import {Button} from "@mui/material";
 import MainButton from "../../components/Button/MainButton";
 import Heading from "../../components/Heading/Heading";
+import {useQuery} from "react-query";
 
 
 export default function Main() {
+
+
     return (
         <>
             <div className="flex justify-center items-center my-8">
-            <Heading/>
+                 <Heading/>
             </div>
             <div className="flex flex-wrap gap-4">
                 {[1, 2, 3].map((item) => {
                     return (
                         <ProductCard
-                            key={item}
                             pps={10}
                             name="HP Deskjet 3755"
                             price={89.99}
@@ -24,7 +25,10 @@ export default function Main() {
                 })}
             </div>
             <div className="flex justify-center items-center my-8">
-                <MainButton/>
+                <MainButton
+                    text={"View All Printers"}
+                    buttonClassName= "transform hover:scale-105 transition duration-300"
+                ></MainButton>
             </div>
         </>
     );

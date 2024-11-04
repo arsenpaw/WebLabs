@@ -73,11 +73,11 @@ export default function Footer() {
 
         <div
             className="bg-gray-900 p-4 text-center text-neutral-700  dark:text-neutral-200">
-          © 2023 Copyright:
+          © 2024 Copyright:
           <a
               className="text-neutral-800 dark:text-neutral-400"
-              href="https://tw-elements.com/"
-          >TW Elements</a>
+              href=""
+          >AXProduct</a>
         </div>
       </footer>
   );
