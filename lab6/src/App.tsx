@@ -6,7 +6,7 @@ import Main from "./pages/Main/Main";
 import NavBar from "./components/NavBar/NavBar";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import Footer from "./components/Footer/Footer";
-import Test from "./pages/Main/Test";
+import Dashboard from "./pages/Main/Dashboard";
 import {AppProvider} from "./provider/AppProvider";
 function App() {
     const queryClient = new QueryClient();

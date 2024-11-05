@@ -3,7 +3,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import cupola from "assets/cupola.png"
 const navigation = [
   { name: 'Main', href: '/', current: true },
-  { name: 'Dashboard', href: '/test', current: false },
+  { name: 'Dashboard', href: '/dashboard', current: false },
 ]
 function classNames(...classes:any) {
   return classes.filter(Boolean).join(' ')

@@ -16,6 +16,7 @@ export default function Main() {
                 {[1, 2, 3].map((item) => {
                     return (
                         <ProductCard
+                            id={'t'}
                             pps={10}
                             name="HP Deskjet 3755"
                             price={89.99}
