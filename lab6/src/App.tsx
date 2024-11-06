@@ -9,7 +9,6 @@ import Footer from "./components/Footer/Footer";
 import Dashboard from "./pages/Main/Dashboard";
 import {AppProvider} from "./provider/AppProvider";
 function App() {
-    const queryClient = new QueryClient();
     return (
         <>
             <NavBar/>

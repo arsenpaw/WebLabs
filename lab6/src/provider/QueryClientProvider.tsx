@@ -1,6 +1,5 @@
-// https://tanstack.com/query/latest/docs/react/quick-start
+// ReactQueryProvider.tsx
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-// https://tanstack.com/query/latest/docs/react/devtools#floating-mode
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { PropsWithChildren } from 'react';
 
@@ -10,7 +9,7 @@ export function ReactQueryProvider({ children }: PropsWithChildren) {
   return (
     <QueryClientProvider client={queryClient}>
       {children}
-      <ReactQueryDevtools initialIsOpen={true} />
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }

@@ -1,17 +1,11 @@
-import {getPrinters} from "../../api/getPrinters";
+import {usePrinters} from "../../api/getPrinters";
 import ProductCardCollage from "../../components/ProductCardCollage/ProductCardCollage";
-import {useEffect, useState} from "react";
-import {IPrinterResponse} from "../../types/Printer";
+
 
 const Dashboard =  () => {
-    const [data, setData] = useState<IPrinterResponse[]>([]);
 
+    const {data,error,isLoading} =  usePrinters();
 
-  useEffect(() => {
-    getPrinters().then((resp) => {
-        setData(resp);
-    });
-}, []);
 
     return (
          <ProductCardCollage data={data} />
