@@ -2,7 +2,7 @@ import ProductCard from "../../components/ProductCard";
 import MainButton from "../../components/Button/MainButton";
 import Heading from "../../components/Heading/Heading";
 import { usePrinters } from "../../api/getPrinters";
-import FilterSelectField from "../../components/Filter/FilterSelectField";
+import Filter from "../../components/Filter/Filter";
 
 export default function Main() {
   const { data } = usePrinters();
@@ -33,7 +33,6 @@ export default function Main() {
           buttonClassName="transform hover:scale-105 transition duration-300"
         />
       </div>
-        <FilterSelectField options={['test','124']} title={'tt'} />
     </>
   );
 }

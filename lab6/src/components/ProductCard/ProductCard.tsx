@@ -3,8 +3,9 @@ https://tinyurl.com/ffWishlistProductCard
 */
 import React from "react";
 import IPrinterReques, {IPrinterResponse} from "types/Printer";
+import {ProductCardProps} from "./types";
 
-const ProductCard = ({name,price,pps,imageUrl,id}: IPrinterResponse) => {
+const ProductCard = ({name,price,pps,imageUrl,id, onClick}: ProductCardProps) => {
   return (
       <div
           className="mt-11 w-80 transform overflow-hidden rounded-lg bg-white dark:bg-slate-800
@@ -21,6 +22,13 @@ const ProductCard = ({name,price,pps,imageUrl,id}: IPrinterResponse) => {
                   {/*<p className="text-base  font-medium text-gray-500 line-through dark:text-gray-300">$25.00</p>*/}
                   {/*<p className="ml-auto text-base font-medium text-green-500">20% off</p>*/}
               </div>
+              <button
+                  onClick={() => onClick ? onClick(id) : undefined}
+                  className="w-full mt-2 px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg
+          font-medium transition-colors duration-300"
+              >
+                  View More
+              </button>
           </div>
       </div>
   )
