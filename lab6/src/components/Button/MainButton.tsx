@@ -2,16 +2,17 @@ import {Button} from "@mui/material";
 
 interface MainButtonProps {
     text:string,
-    buttonClassName?: string
+    buttonClassName?: string,
+    onClick: () => void
 
 }
-const MainButton = (props: MainButtonProps) => {
+const MainButton = ({buttonClassName,onClick, text}: MainButtonProps) => {
 
  return (
         <Button
-         className={props?.buttonClassName || ""}
+         className={buttonClassName || ""}
+         onClick={onClick}
             variant="contained"
-            href="/"
             sx={{
                 backgroundColor: '#1f2937',
                 '&:hover': { backgroundColor: '#5a5dd8' },
@@ -19,7 +20,7 @@ const MainButton = (props: MainButtonProps) => {
                 fontSize: '1.25rem',
             }}
         >
-            {props.text}
+            {text}
         </Button>
     );
 }

@@ -1,37 +1,35 @@
 ﻿using PrinterService.Models;
 
-namespace PrinterService.Extensions
+namespace PrinterService.Extensions;
+
+public static class IQueryableExtensions
 {
-    public static class IQueryableExtensions
+    public static IQueryable<Printer> ApplyOrdering(this IQueryable<Printer> query, PrinterFilter filter)
     {
-
-        public static IQueryable<Printer> ApplyOrdering(this IQueryable<Printer> query, PrinterFilter filter)
-        {
-            if (filter is null)
-            {
-                return query;
-            }
-            if (filter.PpsOrderBy == OrderByType.Descending)
-            {
-                return query.OrderByDescending(x => x.PPS);
-            }
-            else if (filter.PpsOrderBy == OrderByType.Ascending)
-            {
-                return query.OrderBy(x => x.PPS);
-            }
+        if (filter == null)
             return query;
-        }
 
-        public static IQueryable<Printer> ApplySearching(this IQueryable<Printer> query, string search)
+        query = filter.PpsOrderBy switch
         {
-            if (string.IsNullOrEmpty(search))
-            {
-                return query;
-            }
-            else
-            {
-                return query.Where(x => x.Name.Contains(search));
-            }
-        }
+            OrderByType.Descending => query.OrderByDescending(x => x.PPS),
+            OrderByType.Ascending => query.OrderBy(x => x.PPS),
+            _ => query
+        };
+
+        query = filter.MoneyFilter switch
+        {
+            MoneyFilter.UpToHundreds => query.Where(x => x.Price <= 100),
+            MoneyFilter.HundredsAndMore => query.Where(x => x.Price > 100),
+            _ => query
+        };
+
+        return query;
+    }
+
+    public static IQueryable<Printer> ApplySearching(this IQueryable<Printer> query, string search)
+    {
+        if (string.IsNullOrEmpty(search))
+            return query;
+        return query.Where(x => x.Name.Contains(search));
     }
 }

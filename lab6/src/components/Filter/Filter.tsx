@@ -15,7 +15,8 @@ function Filter({ title, options, onChange }: FilterProps) {
                     id={`${title.toLowerCase()}_filter_select`}
                     className="block py-2 text-base text-gray-700 bg-white border min-w-[200px]
                      border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    onChange={(e) => onChange && onChange(e.target.value)}
+                    onChange={(e) => onChange && onChange(
+                        options.find((opt) => opt.label == e.target.value)?.value || 0)}
                 >
                     {options.map((option, index) => (
                         <option key={index} >

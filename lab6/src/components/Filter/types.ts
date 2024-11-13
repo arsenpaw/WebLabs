@@ -1,6 +1,6 @@
 export interface FilterProps {
     title: string;
-    options: { label: string; value: number[] }[]; // Array of objects with label and value
+    options: { label: string; value: number }[];
     className?: string;
-    onChange?: (value: string) => void; // Optional onChange callback for handling selection changes
+    onChange?: (value: number) => void;
 }

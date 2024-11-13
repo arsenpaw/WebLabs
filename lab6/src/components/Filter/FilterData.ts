@@ -1,29 +1,21 @@
 const filterData = {
-    price: {
-        title: 'Price',
-        options: [
-            { label: 'None', value: [] },
-            { label: 'Under $50', value: [0,50] },
-            { label: 'Under $100', value: [0,100] }
-        ]
-    },
     pps: {
-        title: 'PPS',
+        title: 'PPS Ordering',
         options: [
-            { label: 'None', value: [] },
-            { label: '0-1', value: [0,1] },
-            { label: '1-10', value: [1,10] },
-            { label: '10+', value: [10-999] }
+            { label: 'None', value: 0 },
+            { label: 'Descending', value: 1 },
+            { label: 'Ascending', value: 2 },
         ]
     },
     sorting: {
-        title: 'Sorting',
+        title: 'Price Filter',
         options: [
-            { label: 'None', value: [0] },
-            { label: 'Low to High', value: [1]},
-            { label: 'High to Low', value: [2] }
+            { label: 'None', value: 0 },
+            { label: '0 to 100', value: 1},
+            { label: '100 and more', value: 2 }
         ]
     }
 };
+
 
 export default filterData;
