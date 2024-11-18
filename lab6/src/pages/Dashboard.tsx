@@ -6,12 +6,14 @@ import filterData from "../components/Filter/FilterData";
 import ProductCard from "../components/ProductCard";
 import {FilterContext} from "../context/FindContext";
 import {useNavigate} from "react-router-dom";
+import Spinner from "../components/Spinner";
+import SearchInput from "../components/SearchInput";
 
 
 const Dashboard =  () => {
     const nav = useNavigate()
     const context = useContext(FilterContext);
-    const {data,refetch } =  usePrinters(context ?
+    const {data,refetch, isLoading, isError } =  usePrinters(context ?
         {PpsOrderBy: context.orderingByPps, MoneyFilter: context.filterByMoney, search: context.search} :
         {PpsOrderBy: 0, MoneyFilter: 0, search: ""});
 
@@ -19,7 +21,15 @@ const Dashboard =  () => {
         nav(`/dashboard/${id}`)
     }
     const onFilterApply = () => {
+        console.log(context)
        refetch();
+    }
+      if (isLoading) {
+        return (
+            <div className="flex items-center justify-center h-screen">
+                <Spinner />
+            </div>
+    );
     }
     return (
         <div className={'flex flex-col items-center'}>
@@ -30,6 +40,7 @@ const Dashboard =  () => {
                     <Filter title={filterData.sorting.title} options={filterData.sorting.options}
                             onChange={(s) => context?.setFilterByMoney(s)}/>
                     <FilterButton onClick={onFilterApply} label={'Apply'} className={'mt-7'}/>
+                    <SearchInput onClick={onFilterApply}/>
                 </div>
 
             </div>

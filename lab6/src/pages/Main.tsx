@@ -3,17 +3,25 @@ import MainButton from "../components/Button/MainButton";
 import Heading from "../components/Heading/Heading";
 import { usePrinters } from "../api/getPrinters";
 import Filter from "../components/Filter/Filter";
-import {useState} from "react";
+import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import Spinner from "../components/Spinner";
 
 export default function Main() {
-  const { data } = usePrinters({});
+  const { data,isLoading,isError } = usePrinters({});
   const [showedItem, setShowedItem] = useState<number>(3)
   const nav = useNavigate()
       const handleItemClick = (id: string) => {
         nav(`/dashboard/${id}`)
     }
 
+     if (isLoading) {
+        return (
+            <div className="flex items-center justify-center h-screen">
+                <Spinner />
+            </div>
+    );
+    }
   return (
     <>
       <div className="flex justify-center items-center my-8">

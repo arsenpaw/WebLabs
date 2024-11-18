@@ -6,3 +6,5 @@ node_modules
 .DS_Store
 /lab5/front/node_modules
 /lab5/backend/PrinterService/.vs
+lab5/backend/PrinterService/PrinterService/Logs/log.txt
+/lab5/backend/PrinterService/PrinterService/Logs
