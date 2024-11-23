@@ -1,10 +1,10 @@
 import React from "react";
-import { ProductCardProps } from "./types";
+import { IProductProps } from "./types";
 
 // Define a fallback image URL for broken or missing images
 export const fallbackImage = "https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg";
 
-const ProductCard = ({ name, price, pps, imageUrl, id, onClick }: ProductCardProps) => {
+const ProductCard = ({ name, price, pps, imageUrl, id, onClick }: IProductProps) => {
   return (
     <div
       className="mt-11 w-80 transform overflow-hidden rounded-lg bg-white dark:bg-slate-800

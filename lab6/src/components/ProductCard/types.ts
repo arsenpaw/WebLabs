@@ -1,5 +1,5 @@
 import {IPrinterResponse} from "types/Printer";
 
-export interface ProductCardProps extends IPrinterResponse {
+export interface IProductProps extends IPrinterResponse {
   onClick?: (id:string) => void;
 }

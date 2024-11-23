@@ -1,12 +1,23 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { usePrinter } from "../../api/getPrinters";
+import {useParams} from 'react-router-dom';
+import {usePrinter} from "../../api/getPrinters";
 import {fallbackImage} from "../../components/ProductCard/ProductCard";
+import {AddAction, State, store} from "store";
+import {CartOperationEnum} from "../../store/types";
+import {useDispatch} from "react-redux";
+import {IProductProps} from "../../components/ProductCard/types";
 
 export default function PrinterDetail() {
   const { id } = useParams<string>();
   const { data, isLoading, error } = usePrinter(id ?? '');
+  const dispatch = useDispatch();
 
+  const onAddToCart = () => {
+    if (!data)
+        return;
+    const action: AddAction = { type: CartOperationEnum.ADD_TO_CART, payload: data };
+    dispatch(action);
+  }
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-100">
       <div className="max-w-lg w-full bg-white shadow-md rounded-lg overflow-hidden">
@@ -44,8 +55,8 @@ export default function PrinterDetail() {
                 </div>
 
                 <div className="flex justify-end">
-                  <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
-                    Buy Now
+                  <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700" onClick={onAddToCart}>
+                    Add to cart
                   </button>
                 </div>
               </div>

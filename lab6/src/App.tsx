@@ -9,6 +9,7 @@ import Footer from "./components/Footer/Footer";
 import Dashboard from "./pages/Dashboard";
 import {AppProvider} from "./provider/AppProvider";
 import {FilterProvider} from "./context/FindContext";
+import ShoppingCartShortcut from "./components/ShoppingCart/ShoppingCartShortcut";
 function App() {
     return (
         <>
@@ -17,6 +18,7 @@ function App() {
                 <div className="pages">
                    <AppProvider/>
                 </div>
+                <ShoppingCartShortcut/>
             <Footer/>
             </FilterProvider>
         </>

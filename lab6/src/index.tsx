@@ -4,7 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {ReactQueryProvider} from "./provider/QueryClientProvider";
-import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+
+import {Provider} from "react-redux";
+import {store} from "./store";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -12,7 +14,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
       <ReactQueryProvider>
+          <Provider store={store}>
         <App />
+          </Provider>
     </ReactQueryProvider>
   </React.StrictMode>
 );
